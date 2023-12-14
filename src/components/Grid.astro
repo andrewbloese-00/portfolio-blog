@@ -1,0 +1,12 @@
+---
+interface Props { 
+    urls: string[],
+    columns: number,
+}
+const { urls , columns } = Astro.props
+const style = {display: "grid", gridTemplateColumns: `repeat(${columns},1fr)`, placeItems: "center"}
+---
+
+<div style={style}>{
+    urls.map((url)=><img src={url} alt=""/>)
+}</div>

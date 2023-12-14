@@ -1,0 +1,60 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { type CollectionEntry, getCollection } from 'astro:content';
+import ProjectPreview from '../components/ProjectPreview.astro';
+import ProgressiveAutoScroller from '../components/ProgressiveAutoScroller.astro';
+
+const SKILLS = ["HTML","CSS","JavaScript","TypeScript","SQL","GitHub","Python","OpenAI","Puppeteer","Express","Flask","NodeJS","MongoDB","Three.js", "C++","C","Web Scraping"]
+// type ProjectProps = CollectionEntry<'project'>['data'];
+const projects = (await getCollection('project'))
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header title={SITE_TITLE} />
+		<main>
+			<section class="full-h">
+				<h1>Andrew</h1>
+				<p class="hero_text">a software engineer from Arizona, working with Javascript to bring high-quality experiences to the web, one project at a time. </p>
+			</section>
+			<section id="aboutme" class="full-h">
+				<ProgressiveAutoScroller speed='slow' direction='left' textOrUrls={SKILLS} mode='text'/>
+				<article>
+					<h2>About Me </h2>
+					<p> I studied computer science at Arizona State University which has equipped me with a solid understanding of programming and data structures. I fell in love with Web Development from my first exposure to it in High School in a Computer Science Principles course. Since then I have learned how to build backends with NodeJS and Python as well as utilize HTML, CSS and Javascript to build interactive and responsive front-ends. I have recently started learning  Go, and can't wait to see what I can build with it. I welcome you to check out my <a href="#projects">projects</a> below or on my <a href="https://github.com/andrewbloese-00">Github</a> 
+					<span aria-role="image" aria-label="Happy Emoji">😄</span></p>
+				</article>
+				<ProgressiveAutoScroller speed='slow' direction='right' textOrUrls={SKILLS} mode='text'/>
+				
+			</section>
+
+
+			<section id="projects">
+				<h2>Projects</h2>	
+				{projects.map(project=>(
+					<ProjectPreview
+						slug={project.slug}
+						title={project.data.title}
+						preview_text={project.data.description}
+						thumbnail={project.data.thumbnail}
+						stack={project.data.stack}
+					/>)
+				)}
+			</section>
+
+		</main>
+		<Footer />
+	</body>
+</html>
+
+
+
+
+
